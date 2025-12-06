@@ -1,0 +1,99 @@
+import styled from "@emotion/styled";
+import React from "react";
+
+const Overlay = styled.div`
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+`;
+
+const SidebarContainer = styled.aside`
+    position: fixed;
+    top: 82px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 10%);
+    box-shadow: 0 0 80px #00000080;
+    background: ${(props) => props.theme.colors.background.base};
+    color: ${(props) => props.theme.colors.text.primary};
+    border-radius: 26px;
+    z-index: 999;
+    border: 1px solid #00000015;
+    padding: 8px 8px 8px 8px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    gap: 0px;
+
+    & .div1, .div2, .div3, .div4, .div5, .div6 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 4px;
+        padding: 18px 14px;
+        width: 100%;
+
+        & > span {
+            font-family: ${(props) => props.theme.fonts.secondary};
+            color: ${(props) => props.theme.colors.neutral.black.primary};
+            font-weight: 500;
+            line-height: 1;
+            font-size: 18px;
+        } 
+
+        & > p {
+            font-family: ${(props) => props.theme.fonts.primary};
+            font-weight: 300;
+            line-height: 1.2;
+            font-size: 12px;
+            color: ${(props) => props.theme.colors.text.disabled};
+        }
+    }
+
+    .div1 { grid-area: 1 / 1 / 2 / 2; border-right: 1px solid #00000015; border-bottom: 1px solid #00000015; }
+    .div2 { grid-area: 1 / 2 / 2 / 3; border-bottom: 1px solid #00000015; }
+    .div3 { grid-area: 2 / 1 / 3 / 2; border-right: 1px solid #00000015; border-bottom: 1px solid #00000015; }
+    .div4 { grid-area: 2 / 2 / 3 / 3; border-bottom: 1px solid #00000015; }
+    .div5 { grid-area: 3 / 1 / 4 / 2; border-right: 1px solid #00000015; }
+    .div6 { grid-area: 3 / 2 / 4 / 3; }
+    .div7 { 
+        margin-top: 12px;
+        grid-area: 4 / 1 / 5 / 3; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: ${(props) => props.theme.fonts.primary};
+        letter-spacing: -1px;
+        font-size: 20px;
+        font-weight: ${(props) => props.theme.fonts.weights.medium};
+        border-radius: 22px;
+        background-color: ${(props) => props.theme.colors.neutral.black.base};
+        color: ${(props) => props.theme.colors.neutral.white.base};
+
+        & > button {
+            letter-spacing: -1px;
+        }
+    }
+`;
+
+interface SidebarProps {
+    open: boolean;
+    onClose: () => void;
+    children?: React.ReactNode;
+}
+
+export default function Sidebar({ open, onClose, children }: SidebarProps) {
+    if (!open) return null;
+
+    return (
+        <>
+            <Overlay onClick={onClose} />
+            <SidebarContainer>
+                {children}
+            </SidebarContainer>
+        </>
+    );
+}
