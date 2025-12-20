@@ -67,6 +67,7 @@ interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement> {
     children?: React.ReactNode;
     onClick?: () => void;
+    className?: string;
 }
 
 export default function Button({
@@ -74,10 +75,11 @@ export default function Button({
     color,
     bgColor,
     onClick = () => { alert("Button clicked!") },
+    className,
     ...props
 }: ButtonProps) {
     return (
-        <ButtonStyle bgColor={bgColor} color={color} {...props} onClick={onClick}>
+        <ButtonStyle bgColor={bgColor} color={color} className={className} {...props} onClick={onClick}>
             <Text as="span" className="text_static">
                 {children}
             </Text>

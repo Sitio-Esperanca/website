@@ -1,29 +1,32 @@
 import Button from "@/components/button"
 import Text from "@/components/text"
 import styled from "@emotion/styled"
-import BgImage from "@/assets/unidade/hero-op-4.jpg"
-import BgImageDesktop from "@/assets/unidade/hero-op-3.jpg"
+import BgImage from "@/assets/unidade/bg-hero-mobile-sitio-esperanca.jpg"
+import BgImageDesktop from "@/assets/unidade/bg-hero-sitio-esperanca.jpg"
 
 const HeroSection = styled.section`
-    width: 100%;
+    width: calc(100% - 16px);
+    margin-top: 8px;
     background: url(${BgImageDesktop.src}) no-repeat center center;
+    background-attachment: fixed;
     background-size: cover;
-    min-height: calc(100vh - 20px);
-    border-radius: 0 0 112px 112px;
-    padding: 5%;
+    min-height: calc(100vh - 16px);
+    border-radius: 32px;
+    padding: calc(5% - 8px);
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    gap: 32px;
+    gap: 48px;
+    position: relative;
 
     &::before {
         content: "";
         position: absolute;
         bottom: 0;
-        left: 0;
-        width: 100%;
+        left: 0px;
+        width: calc(100%);
         height: 70%;
-        border-radius: 0 0 112px 112px;
+        border-radius: 32px;
         background: linear-gradient(0deg, #000000, #00000000);
         opacity: 0.8;
     }
@@ -31,9 +34,10 @@ const HeroSection = styled.section`
     &::after {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
+        top: 0px;
+        left: 0px;
+        width: calc(100%);
+        border-radius: 32px;
         height: 30%;
         background: linear-gradient(0deg, #00000000, #000000);
         opacity: 0.6;
@@ -53,17 +57,17 @@ const HeroSection = styled.section`
         background-size: cover;
 
         &::before {
-            width: calc(100% - 10px);
+            width: calc(100%);
             height: 70%;
             opacity: 0.8;
-            left: 5px;
+            left: 0px;
             border-radius: 0 0 32px 32px;
         }
 
         &::after {
-            left: 5px;
-            width: calc(100% - 10px);
-            top: 5px;
+            left: 0px;
+            width: calc(100%);
+            top: 0px;
             border-radius: 32px 32px 0 0;
         }
     }
@@ -90,7 +94,6 @@ const HeroSection = styled.section`
 
             & > strong {
                 font-weight: ${(props) => props.theme.fonts.weights.medium};
-                color: ${(props) => props.theme.colors.secondary.base};
             }
         }
     }
@@ -112,7 +115,6 @@ const HeroSection = styled.section`
         & > p {
             font-size: 22px;
             line-height: 1.1;
-            font-family: ${(props) => props.theme.fonts.secondary};
             color: ${(props) => props.theme.colors.text.white};
             font-weight: 300;
 
@@ -126,7 +128,7 @@ const HeroSection = styled.section`
 `
 
 export default function Hero() {
-    return <HeroSection>
+    return <HeroSection className="hero" data-aos="fade-up" data-aos-duration="900">
         <div className="title">
             <Text as="h1">
                 Viva uma experiência <strong>totalmente</strong> inesquecível
@@ -137,7 +139,7 @@ export default function Hero() {
                 Uma experiência confortável e de excelência para você e sua família, contamos com uma ambiente lindo e agradável em meio a natureza
             </Text>
             <Button
-                bgColor="#fff"
+                bgColor="#fffce0"
                 color="#000"
             >
                 Reservar agora

@@ -5,13 +5,23 @@ const Overlay = styled.div`
     position: fixed;
     inset: 0;
     z-index: 900;
+    background: #00000040;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+
+    &.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
 `;
 
 const SidebarContainer = styled.aside`
     position: fixed;
     top: 82px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-8px) scale(0.98);
+    opacity: 0;
     width: calc(100% - 10%);
     box-shadow: 0 0 80px #00000080;
     background: ${(props) => props.theme.colors.background.base};
@@ -26,6 +36,8 @@ const SidebarContainer = styled.aside`
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     gap: 0px;
+    pointer-events: none;
+    transition: transform 220ms ease, opacity 220ms ease;
 
     & .div1, .div2, .div3, .div4, .div5, .div6 {
         display: flex;
@@ -77,6 +89,12 @@ const SidebarContainer = styled.aside`
             letter-spacing: -1px;
         }
     }
+
+    &.open {
+        transform: translateX(-50%) translateY(0) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
 `;
 
 interface SidebarProps {
@@ -86,12 +104,10 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ open, onClose, children }: SidebarProps) {
-    if (!open) return null;
-
     return (
         <>
-            <Overlay onClick={onClose} />
-            <SidebarContainer>
+            <Overlay className={open ? "open" : ""} onClick={onClose} />
+            <SidebarContainer className={open ? "open" : ""} aria-hidden={!open}>
                 {children}
             </SidebarContainer>
         </>

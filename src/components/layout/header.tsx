@@ -1,15 +1,14 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogoImage from "@/assets/logotipo/logo.svg";
-import Bars from "@/assets/icons/bars.svg";
 import Text from "../text";
 import Button from "../button";
 import Sidebar from "./sidebar";
 
 const HeaderBase = styled.header`
     width: 100%;
-    padding: 12px 2.5%;
+    padding: 42px 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -74,13 +73,25 @@ const HeaderMobile = styled(HeaderBase)`
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        position: relative;
+        transition: border-color 200ms ease;
 
-        & .bars {
+        & .line {
+            position: absolute;
+            display: block;
             width: 18px;
-            height: auto;
-            color: #ffffff75;
-            fill: #ffffff75;
+            height: 2px;
+            background: #ffffffd0;
+            transition: transform 200ms ease, opacity 200ms ease;
         }
+
+        & .line:nth-of-type(1) { transform: translateY(-5px); }
+        & .line:nth-of-type(2) { transform: translateY(0); }
+        & .line:nth-of-type(3) { transform: translateY(5px); }
+
+        &.open .line:nth-of-type(1) { transform: translateY(0) rotate(45deg); }
+        &.open .line:nth-of-type(2) { opacity: 0; }
+        &.open .line:nth-of-type(3) { transform: translateY(0) rotate(-45deg); }
     }
 `;
 
@@ -114,14 +125,34 @@ function DesktopHeaderContent() {
 function MobileHeaderContent() {
     const [open, setOpen] = useState(false);
 
-    const handleOpen = () => setOpen(true);
+    const handleToggle = () => setOpen((prev) => !prev);
     const handleClose = () => setOpen(false);
+
+    useEffect(() => {
+        if (typeof document === "undefined") return;
+        const body = document.body;
+        if (open) {
+            body.style.overflow = "hidden";
+        } else {
+            body.style.overflow = "";
+        }
+        return () => {
+            body.style.overflow = "";
+        };
+    }, [open]);
 
     return (
         <>
             <Image className="logotipo" src={LogoImage} alt="logo-do-sitio-esperanca" />
-            <button className="btn_open_menu" onClick={handleOpen}>
-                <Image className="bars" src={Bars} alt="menu" />
+            <button
+                className={`btn_open_menu ${open ? "open" : ""}`}
+                onClick={handleToggle}
+                aria-label={open ? "Fechar menu" : "Abrir menu"}
+                aria-expanded={open}
+            >
+                <span className="line" />
+                <span className="line" />
+                <span className="line" />
             </button>
             <Sidebar open={open} onClose={handleClose}>
                 <div className="div1">

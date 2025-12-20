@@ -6,9 +6,9 @@ export const theme = {
             dark: 'rgb(5, 45, 34)',
         },
         secondary: {
-            base: 'rgb(206, 241, 123)',
-            light: 'rgb(237, 249, 202)',
-            dark: 'rgb(161, 188, 78)',
+            base: 'rgb(187, 216, 237)',
+            light: 'rgb(218, 234, 242)',
+            dark: 'rgb(52, 78, 173)',
         },
         neutral: {
             black: {
@@ -48,8 +48,8 @@ export const theme = {
     },
     fonts: {
         primary: 'DM Sans, sans-serif',
-        secondary: 'Urvanist, sans-serif',
-        titles: 'Faculty Glyphic, serif',
+        secondary: 'Urbanist, sans-serif',
+        titles: 'DM Sans, sans-serif',
         weights: {
             extraLight: 200,
             light: 300,
